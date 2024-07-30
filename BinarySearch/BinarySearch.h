@@ -1,5 +1,5 @@
 /**
- * @brief Find index of the target in the array.
+ * @brief Find the index of the target in the array.
  * 
  * The array must be ascending and each element is unique.
  * 
