@@ -1,5 +1,5 @@
 // Algorithm to the interval [a, b)
-int search(vector<int>& nums, int target)
+int search(const vector<int>& nums, const int& target)
 {
     int left = 0, right = nums.size();
     while (left < right)
@@ -14,7 +14,7 @@ int search(vector<int>& nums, int target)
 }
 
 // Algorithm to the interval [a, b]
-int search(vector<int>& nums, int target)
+int search(const vector<int>& nums, const int& target)
 {
     int left = 0, right = nums.size() - 1;
     while (left < right)
