@@ -7,4 +7,4 @@
  * @param target    The 
  * @return The index of target in the array, or -1 if not found.
  */
-int search(vector<int>& nums, int target);
+int search(const vector<int>& nums, const int& target);
