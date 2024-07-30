@@ -1,4 +1,4 @@
-void getNext(vector<int>& next, string s)
+void getNext(vector<int>& next, const string& s)
 {
     int prefixLen = 0;
     next[0] = 0;
@@ -11,9 +11,7 @@ void getNext(vector<int>& next, string s)
     }
 }
 
-
-
-int KMP(string s1, string s2)
+int KMP(const string& s1, const string& s2)
 {
     if (s2.size() == 0) return 0;
     vector<int> next(s2.size());
