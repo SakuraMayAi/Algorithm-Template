@@ -1,4 +1,13 @@
-// Algorithm to the interval [a, b)
+/**
+ * @brief Find the index of the target in the array.
+ * 
+ * The array must be ascending and each element is unique.
+ * Below is the algorithm for the interval [a, b).
+ * 
+ * @param nums      Int vector.
+ * @param target    The 
+ * @return Return the index of the target in the array, or -1 if not found.
+ */
 int search(const vector<int>& nums, const int& target)
 {
     int left = 0, right = nums.size();
@@ -13,7 +22,16 @@ int search(const vector<int>& nums, const int& target)
     return -1;
 }
 
-// Algorithm to the interval [a, b]
+/**
+ * @brief Find the index of the target in the array.
+ * 
+ * The array must be ascending and each element is unique.
+ * Below is the algorithm for the interval [a, b]
+ * 
+ * @param nums      Int vector.
+ * @param target    The 
+ * @return Return the index of the target in the array, or -1 if not found.
+ */
 int search(const vector<int>& nums, const int& target)
 {
     int left = 0, right = nums.size() - 1;
