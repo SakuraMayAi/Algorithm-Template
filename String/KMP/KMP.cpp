@@ -1,6 +1,6 @@
 void getNext(vector<int>& next, const string& s)
 {
-    int prefixLen = 0;
+    int prefixLen = 0;    // The length of longest common prefix-suffx (LCPS).
     next[0] = 0;
     for (int i = 1; i < s.size(); ++i)
     {
