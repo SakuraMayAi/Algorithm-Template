@@ -1,6 +1,14 @@
+/**
+ * @brief Get the prefix array of the s.
+ * 
+ * Make sure that the size of the array next is equivalent to the length of s.
+ * 
+ * @param next	The prefix array. next[i] means the length of the longest common prefix-suffix in subinterval of [0, i].
+ * @param s    	Pattern string.
+ */
 void getNext(vector<int>& next, const string& s)
 {
-    int prefixLen = 0;    // The length of longest common prefix-suffx (LCPS).
+    int prefixLen = 0;    // The length of the longest common prefix-suffix (LCPS).
     next[0] = 0;
     for (int i = 1; i < s.size(); ++i)
     {
@@ -11,6 +19,13 @@ void getNext(vector<int>& next, const string& s)
     }
 }
 
+/**
+ * @brief Find and return the index of the first occurrence of s1 in s2, or -1 if s1 is not part of s2.
+ * 
+ * @param s1	Main string.
+ * @param s2    Pattern string.
+ * @return The index of the first occurrence of s1 in s2, or -1 if s1 isn't in s2.
+ */
 int KMP(const string& s1, const string& s2)
 {
     if (s2.size() == 0) return 0;
