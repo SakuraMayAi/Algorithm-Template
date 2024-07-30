@@ -1,4 +1,3 @@
-// Assume that we pass an array whose size is the length of s.
 void getNext(vector<int>& next, string s)
 {
     int prefixLen = 0;
