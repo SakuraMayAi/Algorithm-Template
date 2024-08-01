@@ -8,14 +8,14 @@
  */
 void getNext(vector<int>& next, const string& s)
 {
-    int prefixLen = 0;    // The length of the longest common prefix-suffix (LCPS).
+    int j = 0;    // The length of the longest common prefix-suffix (LCPS).
     next[0] = 0;
     for (int i = 1; i < s.size(); ++i)
     {
-        while (prefixLen > 0 && s[prefixLen] != s[i])
-            prefixLen = next[prefixLen - 1];
-        if (s[prefixLen] == s[i]) ++prefixLen;
-        next[i] = prefixLen;
+        while (j > 0 && s[j] != s[i])
+            j = next[j - 1];
+        if (s[j] == s[i]) ++j;
+        next[i] = j;
     }
 }
 
