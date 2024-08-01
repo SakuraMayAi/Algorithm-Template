@@ -1,16 +1,16 @@
 /**
- * @brief Get the prefix array of the s.
+ * @brief Get the next array of the string s.
  * 
  * Make sure that the size of the array next is equivalent to the length of s.
  * 
- * @param next	The prefix array. next[i] means the length of the longest common prefix-suffix in subinterval of [0, i].
+ * @param next	The prefix array. next[i] means the length of the longest common prefix-suffix. in the subinterval of [0, i].
  * @param s    	Pattern string.
  */
 void getNext(vector<int>& next, const string& s)
 {
-    int j = 0;    // The length of the longest common prefix-suffix (LCPS).
+    int j = 0;    // The j points to the last character of the prefix. 
     next[0] = 0;
-    for (int i = 1; i < s.size(); ++i)
+    for (int i = 1; i < s.size(); ++i)    // The i points to the last character of the suffix. 
     {
         while (j > 0 && s[j] != s[i])
             j = next[j - 1];
