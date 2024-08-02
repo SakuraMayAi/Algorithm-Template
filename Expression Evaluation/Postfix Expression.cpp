@@ -12,8 +12,7 @@ int evaluateRPN(vector<string>& opstrings)
     stack<long long> st;  // The st store the operands.
     for (const auto& s : opstrings)
     {   
-        // The size of s is greater than 1 or the first character is
-        // between '0' and '9' means that the s represent an integer.
+        // The size of s is greater than 1 or the s[0] is between '0' and '9' means that the s represents an integer.
         if (s.size() > 1 || ('0' <= s[0] && s[0] <= '9'))
         {
             long long num = 0;  // Use long long in case of overflow.
