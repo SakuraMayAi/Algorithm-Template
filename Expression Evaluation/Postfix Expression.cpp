@@ -7,7 +7,7 @@
  *  vector opstrings. So we need to convert the string to an integer first.
  *  You can also choose stoll() instead.
  */
-int evalRPN(vector<string>& opstrings)
+int evaluateRPN(vector<string>& opstrings)
 {
     stack<long long> st;  // The st store the operands.
     for (const auto& s : opstrings)
