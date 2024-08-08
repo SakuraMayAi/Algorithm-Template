@@ -202,7 +202,7 @@ vector<int> LevelOrderItear(Node* root)
  * @param target    Pointer to the target node.
  * @param depth     The depth of the current node.
  * @return  The depth if target node found, or returned value from the lower
- *          levle recursion if target found in the child tree, or -1 if target
+ *          level recursion if target found in the child tree, or -1 if target
  *          node not found in the child tree.
  */
 int GetDepth(Node* cur, Node* target, int depth)
@@ -217,7 +217,7 @@ int GetDepth(Node* cur, Node* target, int depth)
 /**
  * @brief   Get the height of the node. 
  * @param cur   Pointer to the current node.
- * @return  The height of the current node that equals to 1 plus the maximum value
+ * @return  The height of the current node that equals 1 plus the maximum value
  *          of the left subtree height and right subtree height.
  */
 int GetHeight(Node* cur)
