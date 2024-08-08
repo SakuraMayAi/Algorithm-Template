@@ -9,6 +9,7 @@ using namespace std;
 #define INORDER_TRAVERSAL 1
 #define POSTORDER_TRAVERSAL 1
 #define LEVELORDER_TRAVERSAL 1
+#define GETDEPTH_OR_HEIGHT 1
 
 typedef struct TreeNode
 {
@@ -21,71 +22,49 @@ typedef struct TreeNode
 
 #if PREORDER_TRAVERSAL
 /**
- * @brief       Get the preorder traversal sequence of the binary tree recursively.
- * 
+ * @brief   Get the preorder traversal sequence of the binary tree recursively.
  * @param cur   Pointer to the current node.
  * @param seq   Reference to a vector that stores the values of nodes visited during
- *              the preorder traversal. The function appends node values to this vector.
+ *              the traversal. The function appends node values to this vector.
  */
-void RecurPreTraversal(const Node* cur, vector<int>& seq)
+void PreorderRecur(const Node* cur, vector<int>& seq)
 {
     if (cur == nullptr) return;
     seq.push_back(cur->val);
-    RecurPreTraversal(cur->left, seq);
-    RecurPreTraversal(cur->right, seq);
+    PreorderRecur(cur->left, seq);
+    PreorderRecur(cur->right, seq);
 }
 
 /**
- * @brief       Get the preorder traversal sequence of the binary tree iteratively.
- * 
- * @param root  Pointer to the root node of the binary tree. If null, an empty
- *              vector is returned.
- * @return      A vector to store the values of nodes visited during the preorder
- *              traversal.
+ * @brief   Get the preorder traversal sequence of the binary tree iteratively.
+ * @param root  Pointer to the root node of the binary tree.
+ * @return  An empty vector if the root is nullptr, or a vector that stores the
+ *          values of nodes visited during the traversal.
  */
-vector<int> IteraPreTraversal(Node* root)
-{
-    if (root == nullptr) return vector<int>();
-    stack<Node*> st;
-    vector<int> res;
-    st.push(root);
-    while (!st.empty())
-    {
-        Node* node = st.top();
-        st.pop();
-        res.push_back(node->val);
-        if (node->right) st.push(node->right);
-        if (node->left) st.push(node->left);
-    }
-
-    return res;
-}
 #endif
 
 #if INORDER_TRAVERSAL
 /**
- * @brief       Get the preorder traversal sequence of the binary tree recursively.
- * 
+ * @brief   Get the preorder traversal sequence of the binary tree recursively.
  * @param cur   Pointer to the current node.
  * @param seq   Reference to a vector that stores the values of nodes visited during
- *              the inorder traversal. The function appends node values to this vector.
+ *              the traversal. The function appends node values to this vector.
  */
-void RecurInTraversal(const Node* cur, vector<int>& seq)
+void InorderRecur(const Node* cur, vector<int>& seq)
 {
     if (cur == nullptr) return;
-    RecurInTraversal(cur->left, seq);
+    InorderRecur(cur->left, seq);
     seq.push_back(cur->val);
-    RecurInTraversal(cur->right, seq);
+    InorderRecur(cur->right, seq);
 }
 
 /**
- * @brief       Get the inorder traversal sequence of the binary tree iteratively.
- * @param root  Pointer to the root node of the binary tree. If null, an empty
- *              vector is returned.
- * @return      A vector to store the values of nodes visited during the inorder
- *              traversal.
+ * @brief   Get the inorder traversal sequence of the binary tree iteratively.
+ * @param root  Pointer to the root node of the binary tree.
+ * @return  An empty vector if the root is nullptr, or a vector that stores the
+ *          values of nodes visited during the traversal.
  */
-vector<int> IteraInTraversal(Node* root)
+vector<int> InorderItera(Node* root)
 {
     if (root == nullptr) return vector<int>();
     Node* cur = root;
@@ -113,29 +92,28 @@ vector<int> IteraInTraversal(Node* root)
 
 #if POSTORDER_TRAVERSAL
 /**
- * @brief       Get the postorder traversal sequence of the binary tree recursively.
+ * @brief   Get the postorder traversal sequence of the binary tree recursively.
  * @param cur   Pointer to the current node.
  * @param seq   Reference to a vector that stores the values of nodes visited during
- *              the postorder traversal. The function appends node values to this vector.
+ *              the traversal. The function appends node values to this vector.
  */
-void RecurPostTraversal(const Node* cur, vector<int>& seq)
+void PostorderRecur(const Node* cur, vector<int>& seq)
 {
     if (cur == nullptr) return;
-    RecurPostTraversal(cur->left, seq);
-    RecurPostTraversal(cur->right, seq);
+    PostorderRecur(cur->left, seq);
+    PostorderRecur(cur->right, seq);
     seq.push_back(cur->val);
 }
 
 /**
- * @brief       Get the inorder traversal sequence of the binary tree iteratively.
- * @param root  Pointer to the root node of the binary tree. If null, an empty
- *              vector is returned.
- * @return      A vector to store the values of nodes visited during the postorder
- *              traversal.
- * @note        Change the stacking order of the left node and right nodes, we can get
- *              a sequence that is opposite of the preorder traversal.
+ * @brief   Get the inorder traversal sequence of the binary tree iteratively.
+ * @param root  Pointer to the root node of the binary tree.
+ * @return  An empty vector if the root is nullptr, or a vector that stores the
+ *          values of nodes visited during the traversal.
+ * @note    Change the stacking order of the left node and right nodes, we can get
+ *          a sequence that is opposite of the preorder traversal.
  */
-vector<int> IteraPostTraversal(Node* root)
+vector<int> PostorderItera(Node* root)
 {
     if (root == nullptr) return vector<int>();
     stack<Node*> st;
@@ -157,51 +135,48 @@ vector<int> IteraPostTraversal(Node* root)
 
 #if LEVELORDER_TRAVERSAL
 /**
- * @brief       Recursive helper function for level order traversal. The function traverses
- *              the tree recursively and appends node values to an inner vector correspond
- *              to a certain level.
- * 
+ * @brief   Recursive helper function for LevelOrderRecur(). The function traverses
+ *          the tree recursively and appends node values to an inner vector correspond
+ *          to the level.
  * @param cur   Pointer to the current node.  
- * @param seq   A reference to a 2D vector where each inner vector represents the node 
- *              values at a particular depth in the tree. This vector is populated during
+ * @param vecs  A reference to a 2D vector where each inner vector represents the node 
+ *              values at a particular depth in the tree. This vector is appended during
  *              the traversal.
- * @param depth The current depth in the tree. Start from 0 for the root node.
+ * @param level The current level. Start from 0 for the root node.
  */
-
-void RecurLevelHelper(const TreeNode* cur, vector<vector<int>>& vvec, int depth)
+void LevelOrderHelper(const TreeNode* cur, vector<vector<int>>& vecs, int level)
 {
     if (cur == nullptr) return;
-    if (vvec.size() == depth) vvec.push_back(vector<int>());
-    vvec[depth].push_back(cur->val);
-    RecurLevelHelper(cur->left, vvec, depth + 1);
-    RecurLevelHelper(cur->right, vvec, depth + 1);
+    if (vecs.size() == level) vecs.push_back(vector<int>());
+    vecs[level].push_back(cur->val);
+    LevelOrderHelper(cur->left, vecs, level + 1);
+    LevelOrderHelper(cur->right, vecs, level + 1);
 }
 
 /**
- * @brief       Get the level order traversal sequence of the binary tree recursively.
+ * @brief   Get the level order traversal sequence of the binary tree recursively.
  * @param root  Pointer to the root node of the binary tree. If null, an empty
  *              vector is returned.
- * @param seq   A vector to store the values of nodes visited during the level order
- *              traversal. The function appends node values to this vector from
- *              the 2D vector seq filled by the function RecurLevelHelper().
+ * @param seq   A vector that stores the values of nodes visited during the traversal.
+ *              This function appends node values to this vector from the 2D vector seq
+ *              filled by function LevelOrderHelper().
  */
-void RecurLevelTraversal(const TreeNode* root, vector<int>& seq)
+void LevelOrderRecur(const TreeNode* root, vector<int>& seq)
 {
     if (root == nullptr) return;
-    vector<vector<int>> vvec;
-    RecurLevelHelper(root, vvec, 0);
-    for (const auto& v : vvec)
+    vector<vector<int>> vecs;
+    LevelOrderHelper(root, vecs, 0);
+    for (const auto& v : vecs)
         for (const auto& i : v) seq.push_back(i);
 }
 
 /**
- * @brief       Get the levelorder traversal sequence of the binary tree iteratively.
- * @param root  Pointer to the root node of the binary tree. If null, an empty
- *              vector is returned.
- * @return      A vector to store the values of nodes visited during the level order
- *              traversal.
+ * @brief   Get the level order traversal sequence of the binary tree iteratively.
+ * @param root  Pointer to the root node of the binary tree.
+ * @return  An empty vector if the root is nullptr, or a vector that stores the
+ *          values of nodes visited during the traversal.
  */
-vector<int> IteraLevelTraversal(Node* root)
+vector<int> LevelOrderItear(Node* root)
 {
     if (root == nullptr) return vector<int>();
     queue<Node*> qu;
@@ -217,5 +192,45 @@ vector<int> IteraLevelTraversal(Node* root)
     }
 
     return res;
+}
+#endif
+
+#if GETDEPTH_OR_HEIGHT
+/**
+ * @brief   Get the depth of the target node. 
+ * @param cur       Pointer to the current node.
+ * @param target    Pointer to the target node.
+ * @param depth     The depth of the current node.
+ * @return  The depth if target node found, or returned value from the lower
+ *          levle recursion if target found in the child tree, or -1 if target
+ *          node not found in the child tree.
+ */
+int GetDepth(Node* cur, Node* target, int depth)
+{
+    if (cur == nullptr) return -1;     // Target node not found.
+    if (cur == target) return depth;   // Target node found.
+    int leftDepth = GetDepth(cur->left, target, depth + 1);
+    if (leftDepth != -1) return leftDepth;
+    return GetDepth(cur->right, target, depth + 1);
+}
+
+/**
+ * @brief   Get the height of the node. 
+ * @param cur   Pointer to the current node.
+ * @return  The height of the current node that equals to 1 plus the maximum value
+ *          of the left subtree height and right subtree height.
+ */
+int GetHeight(Node* cur)
+{
+    if (cur == nullptr) return 0;
+    int leftHeight = GetHeight(cur->left);
+    int rightHeight = GetHeight(cur->right);
+    return 1 + max(leftHeight, rightHeight);
+}
+// A simplest version.
+int GetHeight(Node* cur)
+{
+    if (cur == nullptr) return 0;
+    return 1 + max(GetHeight(cur->left), GetHeight(cur->right));
 }
 #endif
